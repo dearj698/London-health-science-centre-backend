@@ -18,11 +18,13 @@ public class UserController {
         User user = userRepository.findOne(id);
         return user;
     }
+
     @GetMapping("/user")
     public User insertUser(User user){
         User save = userRepository.save(user);
         return save;
     }
+
     @GetMapping(value = "/user/login")
     public Boolean login(@RequestParam("email") String email,
                             @RequestParam("password") String password,

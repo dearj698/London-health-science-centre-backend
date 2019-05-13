@@ -1,6 +1,8 @@
 package com.example.springboot.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Set;
 
 @Entity
 @Table(name = "tbl_user")
@@ -18,6 +20,19 @@ public class User {
 
     @Column
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private Set<UserCase> usercase;
+
+    public Boolean addCase (UserCase userCase){
+        try{
+        userCase.setUser(this);
+        this.usercase.add(userCase);
+        return true;}
+        catch (Exception e){
+            return false;
+        }
+    };
 
     public String getPassword() {
         return password;
