@@ -5,6 +5,7 @@ import com.example.springboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,16 +26,22 @@ public class UserController {
         return save;
     }
 
+    @GetMapping("/users")
+    public List<User> getUsers(){
+        List<User> users = userRepository.findAll();
+        return users;
+    }
+
     @GetMapping(value = "/user/login")
-    public Boolean login(@RequestParam("email") String email,
+    public String login(@RequestParam("email") String email,
                             @RequestParam("password") String password,
                             Map<String , Object>map){
         User targetUser = userRepository.findByEmail(email).get(0);
         if (!targetUser.getPassword().equals(password)){
             System.out.println(targetUser.getPassword());
-            return false;
+            return "false";
         }
-        return true;
+        return "true";
 
     }
 }
