@@ -25,6 +25,12 @@ public class UserController {
         return user;
     }
 
+    @GetMapping("/user/getUser")
+    public User getUserByEmail(String email){
+        User user = userRepository.findByEmail(email).get(0);
+        return user;
+    }
+
     @GetMapping("/user")
     public User insertUser(User user){
         User save = userRepository.save(user);
