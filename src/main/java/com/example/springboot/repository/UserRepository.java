@@ -8,5 +8,5 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-    ArrayList<User> findByEmail(String email);
+    List<User> findByEmail(String email);
 }

@@ -5,12 +5,14 @@ import com.example.springboot.entity.UserCase;
 import com.example.springboot.repository.UserCaseRepository;
 import com.example.springboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 @RestController
+@CrossOrigin(origins = "http://192.168.0.104:8080")
 public class UserCaseController {
     @Autowired
     UserCaseRepository userCaseRepository;

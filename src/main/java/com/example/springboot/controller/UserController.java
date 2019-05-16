@@ -2,14 +2,19 @@ package com.example.springboot.controller;
 
 import com.example.springboot.entity.User;
 import com.example.springboot.repository.UserRepository;
+import jdk.nashorn.internal.parser.JSONParser;
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.json.JSONObject;
 
 @RestController
+@CrossOrigin
 public class UserController {
     @Autowired
     UserRepository userRepository;
@@ -27,9 +32,8 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public List<User> getUsers(){
-        List<User> users = userRepository.findAll();
-        return users;
+    public List getUsers(){
+        return userRepository.findAll();
     }
 
     @GetMapping(value = "/user/login")
@@ -39,9 +43,9 @@ public class UserController {
         User targetUser = userRepository.findByEmail(email).get(0);
         if (!targetUser.getPassword().equals(password)){
             System.out.println(targetUser.getPassword());
-            return "false";
+            return "0";
         }
-        return "true";
+        return "1";
 
     }
 }
