@@ -1,6 +1,5 @@
 package com.example.springboot.controller;
 
-import com.example.springboot.UserLoginToken;
 import com.example.springboot.entity.User;
 import com.example.springboot.repository.UserRepository;
 import jdk.nashorn.internal.parser.JSONParser;
@@ -20,14 +19,12 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-    @UserLoginToken
     @GetMapping("/user/{id}")//get user via id
     public User getUser(@PathVariable("id") Integer id){
         User user = userRepository.findOne(id);
         return user;
     }
 
-    @UserLoginToken
     @GetMapping("/user/getUser")
     public User getUserByEmail(String email){
         User user = userRepository.findByEmail(email).get(0);
@@ -40,24 +37,21 @@ public class UserController {
         return save;
     }
 
-    @UserLoginToken
     @GetMapping("/users")
     public List getUsers(){
         return userRepository.findAll();
     }
 
     @GetMapping(value = "/user/login")
-    public User login(@RequestParam("email") String email,
+    public String login(@RequestParam("email") String email,
                             @RequestParam("password") String password,
                             Map<String , Object>map){
         User targetUser = userRepository.findByEmail(email).get(0);
         if (!targetUser.getPassword().equals(password)){
             System.out.println(targetUser.getPassword());
-            return null;
+            return "0";
         }
-        String token = targetUser.getNewToken(targetUser);
-        targetUser.setToken(token);
-        return targetUser;
+        return "1";
 
     }
 }

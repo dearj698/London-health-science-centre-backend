@@ -1,8 +1,5 @@
 package com.example.springboot.entity;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Set;
@@ -12,7 +9,7 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Integer id;
     @Column
     private String lastname;
 
@@ -23,7 +20,7 @@ public class User {
 
     @Column
     private String password;
-    private String token;
+
     @OneToMany(mappedBy = "user")
     private Set<UserCase> usercase;
 
@@ -45,11 +42,11 @@ public class User {
         this.password = password;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -74,19 +71,5 @@ public class User {
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
-    }
-
-    public String getNewToken(User user) {
-        String token = "";
-        token = JWT.create().withAudience(user.getId().toString()).sign(Algorithm.HMAC256(user.getPassword()));
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public String getToken() {
-        return token;
     }
 }
